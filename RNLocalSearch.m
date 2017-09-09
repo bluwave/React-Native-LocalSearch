@@ -19,7 +19,14 @@ RCT_EXPORT_MODULE()
     
     for (MKMapItem *mapItem in localSearchResponse.mapItems) {
         NSMutableDictionary *formedLocation = [[NSMutableDictionary alloc] init];
-        
+        NSMutableDictionary *pm = [[NSMutableDictionary alloc] init];
+        [pm setValue:mapItem.placemark.thoroughfare forKey:@"thoroughfare"];
+        [pm setValue:mapItem.placemark.subThoroughfare forKey:@"subThoroughfare"];
+        [pm setValue:mapItem.placemark.locality forKey:@"locality"];
+        [pm setValue:mapItem.placemark.administrativeArea forKey:@"administrativeArea"];
+        [pm setValue:mapItem.placemark.postalCode forKey:@"postalCode"];
+        [pm setValue:mapItem.placemark.ISOcountryCode forKey:@"ISOcountryCode"];
+        [formedLocation setValue:pm forKey:@"placemark"];
         [formedLocation setValue:mapItem.name forKey:@"name"];
         [formedLocation setValue:mapItem.placemark.title forKey:@"title"];
         [formedLocation setValue:mapItem.phoneNumber forKey:@"phoneNumber"];
