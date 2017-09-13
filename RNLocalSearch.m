@@ -20,12 +20,13 @@ RCT_EXPORT_MODULE()
     for (MKMapItem *mapItem in localSearchResponse.mapItems) {
         NSMutableDictionary *formedLocation = [[NSMutableDictionary alloc] init];
         NSMutableDictionary *pm = [[NSMutableDictionary alloc] init];
-        [pm setValue:mapItem.placemark.thoroughfare forKey:@"thoroughfare"];
-        [pm setValue:mapItem.placemark.subThoroughfare forKey:@"subThoroughfare"];
-        [pm setValue:mapItem.placemark.locality forKey:@"locality"];
-        [pm setValue:mapItem.placemark.administrativeArea forKey:@"administrativeArea"];
-        [pm setValue:mapItem.placemark.postalCode forKey:@"postalCode"];
-        [pm setValue:mapItem.placemark.ISOcountryCode forKey:@"ISOcountryCode"];
+        NSLog(@"address Dict: %@", mapItem.placemark.addressDictionary);
+//        [pm setValue:mapItem.placemark.thoroughfare forKey:@"thoroughfare"];
+        [pm setValue:[NSString stringWithFormat:@"%@ %@",mapItem.placemark.subThoroughfare, mapItem.placemark.thoroughfare]  forKey:@"street"];
+        [pm setValue:mapItem.placemark.locality forKey:@"city"];
+        [pm setValue:mapItem.placemark.administrativeArea forKey:@"state"];
+        [pm setValue:mapItem.placemark.postalCode forKey:@"zip"];
+        [pm setValue:mapItem.placemark.ISOcountryCode forKey:@"country"];
         [formedLocation setValue:pm forKey:@"placemark"];
         [formedLocation setValue:mapItem.name forKey:@"name"];
         [formedLocation setValue:mapItem.placemark.title forKey:@"title"];
